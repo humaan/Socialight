@@ -1,0 +1,15 @@
+{
+  "name": "socialight",
+  "version": "1.0.0",
+  "description": "Pulling in events for my magic lamp.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "serialport": "^2.1.0"
+  }
+}

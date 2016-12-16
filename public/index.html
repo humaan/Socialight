@@ -1,0 +1,74 @@
+<html>
+<head>
+  <title>control trigger</title>
+  <style type="text/css">
+    .list {
+      float:left;
+      width:250px;
+    }
+    .list li {
+      padding:5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Trigger events</h1>
+
+  <ul class="list list1">
+    <li>
+      <h2>Twitter</h2>
+    </li>
+    <li>
+      <button class="jazzvent" name="twitter" value="like">like</button>
+    </li>
+    <li>
+      <button class="jazzvent" name="twitter" value="retweet">retweet</button>
+    </li>
+    <li>
+      <button class="jazzvent" name="twitter" value="follow">follow</button>
+    </li>
+    <li>
+      <button class="jazzvent" name="twitter" value="mention">mention</button>
+    </li>
+    <li>
+      <button class="jazzvent" name="twitter" value="message">message</button>
+    </li>
+  </ul>
+  </form>
+
+  <ul class="list list2">
+    <li>
+      <h2>Instagram</h2>
+    </li>
+    <li>
+      <button class="jazzvent" name="instagram" value="like">like</button>
+    </li>
+    <li>
+      <button class="jazzvent" name="instagram" value="follow">follow</button>
+    </li>
+    <li>
+      <button class="jazzvent" name="instagram" value="mention">mention</button>
+    </li>
+    <li>
+      <button class="jazzvent" name="instagram" value="tag">tag</button>
+    </li>
+    <li>
+      <button class="jazzvent" name="instagram" value="message">message</button>
+    </li>
+  </ul>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript">
+    $('.jazzvent').click(function() {
+      var platform = this.name;
+      var activity = this.value;
+      console.log('POST to /' + platform + '/' + activity);
+      $.ajax({
+          type: 'POST',
+          url: '/' + platform + '/' + activity
+      });
+    });
+  </script>
+</body>
+</html>
