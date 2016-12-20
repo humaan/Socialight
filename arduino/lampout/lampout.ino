@@ -29,7 +29,7 @@ void setup() {
     Serial.println("Card init failed");
     return;   // It's not there, don't do anything
   }
-  sample.volume(10);
+  sample.volume(2);
   sample.play("1.wav");
   Serial.println(sample.isPlaying());
 //  Serial.println("looking for datafile");

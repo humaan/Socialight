@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.4",
+    "node-rest-client": "^2.0.1",
     "serialport": "^2.1.0"
   }
 }

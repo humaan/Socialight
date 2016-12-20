@@ -2,10 +2,15 @@ var serialport = require('serialport');
 var express = require('express');
 var app = express();
 
+var Client = require('node-rest-client').Client;
+var client = new Client();
+var w_api = ""; // get your api posts url from waaffle!
+var w_events = [];
+
 // create serial port, open immediately
 // and write status message to server console
 var SerialPort = serialport.SerialPort;
-var port = new SerialPort('/dev/cu.usbmodem1411', {
+var port = new SerialPort('/dev/cu.usbmodem1421', {
   baudrate: 9600,
   parser: serialport.parsers.readline("\n")
 }, true, function(err, bytesWritten) {
@@ -38,7 +43,37 @@ function showError(error) {
 function trigger(platform, activity, res) {
   console.log('From internet: ' + platform + '/' + activity);
   port.write(platform + '/' + activity);
-  res.send('Logged ' + platform + ' - ' + activity);
+  // res.send('Logged ' + platform + ' - ' + activity);
+}
+
+function sendEvents() {
+  if (w_events.length > 0) {
+    var my_event = w_events.shift();
+    if (my_event.platform=='instagram') {
+      trigger('INST', 'lik');
+    } else if (my_event.platform=='twitter') {
+      trigger('TWIT', 'ret');
+    }
+    setTimeout(sendEvents,2000);
+  }
+}
+
+try {
+  client.get(w_api, {}, function(data, response) {
+    data.data.forEach(function(current, index, arr) {
+      w_events.push({
+        platform: current.source,
+      });
+      console.log(current.source);
+    });
+    console.log('--- done ---');
+    sendEvents();
+  });  
+} catch (e) {
+  if (w_api == '') {
+    console.log('go to waaffle and get your API url first');
+    process.exit();
+  }
 }
 
 // app.use('/', function (req, res) {
